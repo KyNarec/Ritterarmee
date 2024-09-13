@@ -7,6 +7,7 @@ public class AUFMARSCH extends SPIEL
         zaehler++;
         armee = new RITTER[8];
         super.starteTickerNeu(1);
+        super.setzeHintergrundgrafik("wiese.jpg");
     }
 
     public void aufmarschieren(){
