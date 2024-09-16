@@ -21,14 +21,15 @@ public class AUFMARSCH extends SPIEL
 
     public void einordnen(RITTER ritter){
         int pos = freiePositionFinden();
-        //TODO: hier weiter machen bei S.6 Arbeitsauftrag 2 b
-        ritter.marschieren(pos);
+        //TODO: Abstand soll 2 sein
+            ritter.marschieren(pos*2);
+            System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + pos);
     }
 
     public int freiePositionFinden(){
         for (int i = 0; i < armee.length; i++) {
-            if (armee[i] != null) {
-                return i-1;
+            if (armee[i] != null && i > 1) {
+                return i;
             }
         }
         return 0;
@@ -36,7 +37,6 @@ public class AUFMARSCH extends SPIEL
 
     @Override
     public void tick(){
-        zaehler++;
         String nBild = "";
         Random rand = new Random();
         int zufallszahl = rand.nextInt(4);
@@ -55,6 +55,14 @@ public class AUFMARSCH extends SPIEL
                 break;
         }
         String nName = "Olaf"+zaehler;
-        RITTER ritter_neu = new RITTER(-3,-4,nBild,nName);
+
+        System.out.println(armee[3]);
+        System.out.println(freiePositionFinden());
+
+            int freePos = freiePositionFinden();
+            armee[freePos] = new RITTER(-3,-4,nBild,nName);
+            einordnen(armee[freePos]);
+
+        zaehler++;
     }
 }
