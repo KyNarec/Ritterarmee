@@ -6,6 +6,7 @@ extends FIGUR
      {
           super(bild);
           name = n;
+          super.setzeMittelpunkt(x, y);
 
      }
 

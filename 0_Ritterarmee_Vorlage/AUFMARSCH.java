@@ -4,10 +4,12 @@ public class AUFMARSCH extends SPIEL
     int zaehler = 0;
     RITTER[] armee;
 
+    int freePos;
+
     public AUFMARSCH(){
         super(960,540);
         zaehler++;
-        armee = new RITTER[8];
+        this.armee = new RITTER[8];
         super.starteTickerNeu(1);
         super.setzeHintergrundgrafik("wiese.jpg");
     }
@@ -20,19 +22,19 @@ public class AUFMARSCH extends SPIEL
     }
 
     public void einordnen(RITTER ritter){
-        int pos = freiePositionFinden();
-        //TODO: Abstand soll 2 sein
-            ritter.marschieren(pos*2);
-            System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + pos);
+        //TODO: ncit marscheieren sondern beim aufstellen die pos machen und dann beim aufruecken erst marschieren
+            ritter.marschieren(2);
+            System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + freePos);
     }
 
     public int freiePositionFinden(){
+        //System.out.println("armee länge" +armee.length);
         for (int i = 0; i < armee.length; i++) {
-            if (armee[i] != null && i > 1) {
-                return i;
-            }
+            //System.out.println("werde ausgefuehrt");
+            if (armee[i] == null) continue;
+            return i - 1;
         }
-        return 0;
+            return 7;
     }
 
     @Override
@@ -40,29 +42,22 @@ public class AUFMARSCH extends SPIEL
         String nBild = "";
         Random rand = new Random();
         int zufallszahl = rand.nextInt(4);
-        switch (zufallszahl){
-            case 0:
-                nBild = "ritter_1.png";
-                break;
-            case 1:
-                nBild = "ritter_2.png";
-                break;
-            case 2:
-                nBild = "ritter_3.png";
-                break;
-            case 3:
-                nBild = "ritter_4.png";
-                break;
+        switch (zufallszahl) {
+            case 0 -> nBild = "ritter_1.png";
+            case 1 -> nBild = "ritter_2.png";
+            case 2 -> nBild = "ritter_3.png";
+            case 3 -> nBild = "ritter_4.png";
         }
         String nName = "Olaf"+zaehler;
 
-        System.out.println(armee[3]);
-        System.out.println(freiePositionFinden());
+        //System.out.println(armee[3]);
+        //System.out.println(freiePositionFinden());
 
-            int freePos = freiePositionFinden();
-            armee[freePos] = new RITTER(-3,-4,nBild,nName);
+        this.freePos = freiePositionFinden();
+        if (freePos > -1) {
+            armee[freePos] = new RITTER(-3, -4, nBild, nName);
             einordnen(armee[freePos]);
-
+        }
         zaehler++;
     }
 }
