@@ -14,20 +14,26 @@ public class AUFMARSCH extends SPIEL
         super.setzeHintergrundgrafik("wiese.jpg");
     }
 
-    public void aufmarschieren(){
+    public void abmarschieren(){
+        armee[7].animiereGerade(0.75, 20, -4, false);
+        System.out.println("Ritter "+ armee[7].name + " marschiert ab");
+        //armee[7] = null;
     }
 
     public void aufruecken(){
-        
+        for (int i = 7; i > 0 ; i--) {
+            this.armee[i]=armee[i-1];
+           if (armee[i-1] == null) continue;
+           armee[i-1].animiereGerade(0.75, -14 + (i *4), -4, false);
+//            einordnen(armee[i-1]);
+           System.out.println("Ritter " + armee[i-1].name + " rückt auf Position " + freePos);
+        }
+        this.armee[0] = null;
     }
 
     public void einordnen(RITTER ritter){
-        //TODO: ncit marscheieren sondern beim aufstellen die pos machen und dann beim aufruecken erst marschieren
-            //ritter.marschieren(2);
         ritter.setzeMittelpunkt(-20, -4);
         ritter.animiereGerade(0.75, -14 + (freePos*4), -4, false);
-        //ritter.marschieren(-11 + ((freePos)*4));
-
         System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + freePos);
     }
 
@@ -62,6 +68,11 @@ public class AUFMARSCH extends SPIEL
             armee[freePos] = new RITTER(-3, -4, nBild, nName);
             einordnen(armee[freePos]);
         }
+        if (zufallszahl == 1) {
+            abmarschieren();
+            aufruecken();
+        }
+
         zaehler++;
     }
 }
