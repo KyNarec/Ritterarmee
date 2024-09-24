@@ -15,32 +15,37 @@ public class AUFMARSCH extends SPIEL
     }
 
     public void abmarschieren(){
+        /*
+          Der vorderste Ritter marschiert ab
+         */
         armee[7].animiereGerade(0.75, 20, -4, false);
         System.out.println("Ritter "+ armee[7].name + " marschiert ab");
-        //armee[7] = null;
     }
 
     public void aufruecken(){
         for (int i = 7; i > 0 ; i--) {
-            this.armee[i]=armee[i-1];
-           if (armee[i-1] == null) continue;
-           armee[i-1].animiereGerade(0.75, -14 + (i *4), -4, false);
-//            einordnen(armee[i-1]);
-           System.out.println("Ritter " + armee[i-1].name + " rückt auf Position " + freePos);
+            /*
+              Die ritter rücken auf, indem der höhere Index des Arrays durch den um eins niedrigeren Index ersetzt wird. Bsp.: Index 7 (armee[7]) wird durch Index 6 (armee[6]) ersetzt
+             */
+            this.armee[i] = armee[i-1];
+            if (armee[i-1] == null) continue;
+            armee[i-1].animiereGerade(0.75, -14 + (i *4), -4, false);
+            System.out.println("Ritter " + armee[i-1].name + " rückt auf Position " + freePos);
         }
         this.armee[0] = null;
     }
 
     public void einordnen(RITTER ritter){
+        /*
+          Setzt den Mittelpunkt außerhalb des Spielfensters, damit die animation schön aussieht
+         */
         ritter.setzeMittelpunkt(-20, -4);
         ritter.animiereGerade(0.75, -14 + (freePos*4), -4, false);
         System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + freePos);
     }
 
     public int freiePositionFinden(){
-        //System.out.println("armee länge" +armee.length);
         for (int i = 0; i < armee.length; i++) {
-            //System.out.println("werde ausgefuehrt");
             if (armee[i] == null) continue;
             return i - 1;
         }
@@ -59,10 +64,6 @@ public class AUFMARSCH extends SPIEL
             case 3 -> nBild = "ritter_4.png";
         }
         String nName = "Olaf"+zaehler;
-
-        //System.out.println(armee[3]);
-        //System.out.println(freiePositionFinden());
-
         this.freePos = freiePositionFinden();
         if (freePos > -1) {
             armee[freePos] = new RITTER(-3, -4, nBild, nName);
@@ -72,7 +73,6 @@ public class AUFMARSCH extends SPIEL
             abmarschieren();
             aufruecken();
         }
-
         zaehler++;
     }
 }
