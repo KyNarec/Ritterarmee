@@ -18,13 +18,17 @@ public class AUFMARSCH extends SPIEL
     }
 
     public void aufruecken(){
-
+        
     }
 
     public void einordnen(RITTER ritter){
         //TODO: ncit marscheieren sondern beim aufstellen die pos machen und dann beim aufruecken erst marschieren
-            ritter.marschieren(2);
-            System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + freePos);
+            //ritter.marschieren(2);
+        ritter.setzeMittelpunkt(-20, -4);
+        ritter.animiereGerade(0.75, -14 + (freePos*4), -4, false);
+        //ritter.marschieren(-11 + ((freePos)*4));
+
+        System.out.println("Ritter "+ ritter.name + " marschiert auf Position " + freePos);
     }
 
     public int freiePositionFinden(){
