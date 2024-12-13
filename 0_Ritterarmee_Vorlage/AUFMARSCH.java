@@ -2,14 +2,16 @@ import java.util.Random;
 public class AUFMARSCH extends SPIEL
 {
     int zaehler = 0;
-    RITTER[] armee;
+//    RITTER[] armee;
 
     int freePos;
+
+    LISTE armee = new LISTE();
 
     public AUFMARSCH(){
         super(960,540);
         zaehler++;
-        this.armee = new RITTER[8];
+//        this.armee = new RITTER[8];
         super.starteTickerNeu(1);
         super.setzeHintergrundgrafik("wiese.jpg");
     }
@@ -18,22 +20,24 @@ public class AUFMARSCH extends SPIEL
         /*
           Der vorderste Ritter marschiert ab
          */
-        armee[7].animiereGerade(0.75, 20, -4, false);
-        System.out.println("Ritter "+ armee[7].name + " marschiert ab");
+        RITTER ende = (RITTER) armee.EndeGeben();
+        ende.animiereGerade(0.75, 20, -4, false);
+        System.out.println("Ritter "+ ende.InformationAusgeben() + " marschiert ab");
     }
 
-    public void aufruecken(){
-        for (int i = 7; i > 0 ; i--) {
-            /*
-              Die ritter rücken auf, indem der höhere Index des Arrays durch den um eins niedrigeren Index ersetzt wird. Bsp.: Index 7 (armee[7]) wird durch Index 6 (armee[6]) ersetzt
-             */
-            this.armee[i] = armee[i-1];
-            if (armee[i-1] == null) continue;
-            armee[i-1].animiereGerade(0.75, -14 + (i *4), -4, false);
-            System.out.println("Ritter " + armee[i-1].name + " rückt auf Position " + freePos);
-        }
-        this.armee[0] = null;
-    }
+//    public void aufruecken(){
+//        for (int i = 7; i > 0 ; i--) {
+//            /*
+//              Die ritter rücken auf, indem der höhere Index des Arrays durch den, um eins niedrigeren Index ersetzt wird.
+//              Bsp.: Index 7 (armee[7]) wird durch Index 6 (armee[6]) ersetzt
+//             */
+//            this.armee[i] = armee[i-1];
+//            if (armee[i-1] == null) continue;
+//            armee[i-1].animiereGerade(0.75, -14 + (i *4), -4, false);
+//            System.out.println("Ritter " + armee[i-1].name + " rueckt auf Position " + freePos);
+//        }
+//        this.armee[0] = null;
+//    }
 
     public void einordnen(RITTER ritter){
         /*
@@ -45,13 +49,10 @@ public class AUFMARSCH extends SPIEL
     }
 
     public int freiePositionFinden(){
-        for (int i = 0; i < armee.length; i++) {
-            if (armee[i] == null) continue;
-            return i - 1;
-        }
-            return 7;
+        if (armee.DatenGeben(7) != null) return -1;
+//        TODO: index finden
+//        else return armee.EndeGeben().
     }
-
     @Override
     public void tick(){
         String nBild = "";
@@ -66,12 +67,14 @@ public class AUFMARSCH extends SPIEL
         String nName = "Olaf"+zaehler;
         this.freePos = freiePositionFinden();
         if (freePos > -1) {
-            armee[freePos] = new RITTER(-3, -4, nBild, nName);
-            einordnen(armee[freePos]);
+            armee.HintenEinfuegen(new RITTER(-3, -4, nBild, nName));
+//            armee[freePos] = new RITTER(-3, -4, nBild, nName);
+//            einordnen(armee[freePos]);
+            einordnen((RITTER) armee.EndeGeben());
         }
         if (zufallszahl == 1) {
             abmarschieren();
-            aufruecken();
+//            aufruecken();
         }
         zaehler++;
     }

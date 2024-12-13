@@ -1,5 +1,4 @@
-public class RITTER
-extends FIGUR
+public class RITTER extends FIGUR implements DATENELEMENT
 {
      String name;
      public RITTER(double x, int y, String bild, String n)
@@ -16,5 +15,15 @@ extends FIGUR
 
      public String nenneName(){
          return name;
+     }
+
+     @Override
+     public String InformationAusgeben() {
+          return this.name;
+     }
+
+     @Override
+     public boolean IstKleinerAls(DATENELEMENT dvergleich) {
+          return this.name.compareTo(dvergleich.InformationAusgeben()) < 0;
      }
 }
