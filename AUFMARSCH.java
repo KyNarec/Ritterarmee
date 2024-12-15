@@ -3,7 +3,7 @@ public class AUFMARSCH extends SPIEL
 {
     int zaehler = 0;
 //    RITTER[] armee;
-
+ 
     int freePos;
 
     LISTE armee = new LISTE();
@@ -52,6 +52,7 @@ public class AUFMARSCH extends SPIEL
         if (armee.DatenGeben(7) != null) return -1;
 //        TODO: index finden
 //        else return armee.EndeGeben().
+        return 0;
     }
     @Override
     public void tick(){
