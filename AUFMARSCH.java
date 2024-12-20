@@ -23,6 +23,7 @@ public class AUFMARSCH extends SPIEL
         RITTER ende = (RITTER) armee.EndeGeben();
         ende.animiereGerade(0.75, 20, -4, false);
         System.out.println("Ritter "+ ende.InformationAusgeben() + " marschiert ab");
+        armee.AnfangEntfernen();
     }
 
 //    public void aufruecken(){
@@ -52,7 +53,7 @@ public class AUFMARSCH extends SPIEL
         if (armee.DatenGeben(7) != null) return -1;
 //        TODO: index finden
 //        else return armee.EndeGeben().
-        return 0;
+        else return armee.LaengeGeben() + 1;
     }
     @Override
     public void tick(){
@@ -75,6 +76,7 @@ public class AUFMARSCH extends SPIEL
         }
         if (zufallszahl == 1) {
             abmarschieren();
+            System.out.println("KOnstantin");
 //            aufruecken();
         }
         zaehler++;
